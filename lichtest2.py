@@ -22,8 +22,6 @@ if a in seasons:
     if b in seasons:
         print(answer)
     else:
-        print("Напишите время года в которое вы родились с большой буквы. Выберите одно: " +
-              ", ".join(map(str, seasons)))
+        print("Выберите одно: " + ", ".join(map(str, seasons)))
 else:
-    print("Напишите любимое время года с большой буквы. Выберите одно: " + ", ".join(map(str, seasons)))
-
+    print("Выберите одно: " + ", ".join(map(str, seasons)))
