@@ -7,7 +7,7 @@ planet = random.choice(planets)
 # к этому моменту в переменной planet лежит правильный ответ
 print('Какую планету я загадал?')
 answer = input()
-planet = 'Земля'
+answer = planet
 # далее программа проверяет, что ответ answer совпал с правильным ответом planet
 # !!! ниже непонятный код !!!
 if answer == 'Плутон':

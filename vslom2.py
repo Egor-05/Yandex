@@ -6,7 +6,7 @@ planet = random.choice(planets)
 # !!! выше непонятный код !!!
 # к этому моменту в переменной planet лежит правильный ответ
 warning = 'Присутствует защита от взлома!'
-warning = warning + planet
+warning = 'Загаданная планета - ' + planet
 print(warning)
 riddle = 'Какую планету я загадал?'
 print(riddle)
