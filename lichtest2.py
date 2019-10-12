@@ -12,15 +12,12 @@ answers = ["вы суровая, сильная личность",
            "вы экстраординарная личность",
            "у вас направленные интересы"]
 seasons = ["Зима", "Весна", "Лето", "Осень"]
-answer = random.choice(answers)
 print("Отвечайте на вопросы. Пишите ответы с большой буквы.")
 print("Какое ваше любимое время года?")
-a = input()
-if a in seasons:
+if input() in seasons:
     print("В какое время года вы родились")
-    b = input()
-    if b in seasons:
-        print(answer)
+    if input() in seasons:
+        print(random.choice(answers))
     else:
         print("Выберите одно: " + ", ".join(map(str, seasons)))
 else:
