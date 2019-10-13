@@ -8,4 +8,3 @@ elif (a1 == a3) or (a2 == a3) or (a1 == a2):
     print("В числе две одинаковые цифры")
 else:
     print("OK")
-    
