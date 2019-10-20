@@ -5,9 +5,7 @@ x1 = 0
 y1 = 0
 n = 0  # направление, 0 - север, 1 - восток, 2 - юг, 3 - запад
 b = input()
-if x == 0 and y == 0:
-    print(0)
-while (x == x1) and (y == y1):
+while not(x == x1 and y == y1):
     if b == 'вперёд':
         steps = int(input())
     a += 1
