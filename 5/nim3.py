@@ -10,13 +10,11 @@ while one != 0 and two != 0 and three != 0:
     print(ii)
     print(iii)
 
-    if a == 1 and one - b == 0 and two == 0 and three == 0:
-        print('Ты выйграл!!!')
-    elif a == 2 and two - b == 0 and one == 0 and three == 0:
-        print('Ты выйграл!!!')
-    elif a == 3 and three - b == 0 and one == 0 and two == 0:
-        print('Ты выйграл!!!')
-    else:
+    if ii == 1 and one - iii == 0 and two == 0 and three == 0:
+        print('ИИ выйграл!!!')
+    elif ii == 2 and two - iii == 0 and one == 0 and three == 0:
+        print('ИИ выйграл!!!')
+    elif ii == 3 and three - iii == 0 and one == 0 and two == 0:
         print('ИИ выйграл!!!')
 
     if ii == 1:
@@ -33,7 +31,7 @@ while one != 0 and two != 0 and three != 0:
 
     a = int(input())
     b = int(input())
-    while (a == 1 and b > one) or (a == 2 and b > two) or a != 1 or a != 2:
+    while (a == 1 and b > one) or (a == 2 and b > two) or (a == 3 and b > three) or a != 1 or a != 2:
         if a == 1 and b > one:
             b = int(input('Введите число камней заново!'))
         elif a == 2 and b > two:
@@ -47,8 +45,6 @@ while one != 0 and two != 0 and three != 0:
         print('Ты выйграл!!!')
     elif a == 3 and three - b == 0 and one == 0 and two == 0:
         print('Ты выйграл!!!')
-    else:
-        print('ИИ выйграл!!!')
 
     if a == 1:
         if one - b >= 0:
