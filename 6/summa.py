@@ -1,11 +1,9 @@
-a = 0
+n = int(input())
 b = 0
-for i in range(int(input())):
-    i = int(input())
-    if a == 0:
-        b += i
-        a += i
+for i in range(n):
+    a = int(input())
+    if i % 2 == 0:
+        b += a
     else:
-        b -= i
-        a = 0
+        b -= a
 print(b)
