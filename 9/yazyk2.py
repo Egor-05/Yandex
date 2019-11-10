@@ -12,13 +12,10 @@ for i in range(a + b + c):
         nem.add(a1)
     elif a1 not in france:
         france.add(a1)
-diff1 = angl & nem
-diff2 = france & angl
-diff3 = nem & france
-diff4 = diff1 & diff2 & diff3
-diff5 = diff3 ^ diff2 ^ diff1
-diff = diff5 - diff4
-if diff == 0:
+diff1 = angl & nem & france
+diff2 = (angl & nem) ^ (nem & france) ^ (france & angl)
+diff = diff2 - diff1
+if len(diff) == 0:
     print('NO')
 else:
-    print(diff)
+    print(len(diff))
