@@ -7,4 +7,4 @@ for i in range(n):
         sp.append('-'.join(s.split()))
         s = input()
     a.append('-'.join(sp))
-print(', '.join(sp[::-1]))
+print(', '.join(a[::-1]))
