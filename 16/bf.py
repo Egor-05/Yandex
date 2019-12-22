@@ -25,3 +25,23 @@ for i in a:
             m -= 1
     elif i == '.':
         print(p[m])
+    elif i == '[':
+        while 1:
+            if i == '+':
+                p[m] = 255
+            elif i == '-':
+                p[m] = 255
+            elif i == '>':
+                if m == 29999:
+                    m = 0
+                else:
+                    m += 1
+            elif i == '<':
+                if m == 0:
+                    m = 29999
+                else:
+                    m -= 1
+            elif i == '.':
+                print(p[m])
+            elif i == ']':
+                break
