@@ -1,15 +1,11 @@
-tabl = []
 a = int(input())
-for i in range(a):
-    cws = input().split("'")
-    for j in range(len(cws)):
-        if j % 2 == 0:
-            cws[j] = cws[j].split(',')
-            tabl.append(cws)
-print(tabl)
-nums = []
-for i in range(int(input())):
-    a = input().split()
-    nums.append(a)
-for i in nums:
-    print(tabl[int(i[0])][int(i[1])])
+list_ = [input() for _ in range(a)]
+a = int(input())
+for _ in range(a):
+    s = [int(i) for i in input().split(',')]
+for i in range(len(list_)):
+    j = -1
+    while j < len(list_[i]):
+        j += 1
+        if "'" in list_[i][j]:
+            list_[i][j] = list_[i][j].split()

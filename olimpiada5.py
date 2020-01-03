@@ -1,16 +1,16 @@
 a = int(input())
 mushrooms = [int(i) for i in input().split()]
+mushrooms.sort(reverse=True)
+if mushrooms[-1] == 0:
+    del mushrooms[-1]
 mm = min(mushrooms)
-if mm == 0:
-    print(0)
-    exit()
-d_f_r = [i for i in range(1, mm + 1) if mm % i == 0]
-# d_f_r.sort()
-for i in range(a):
-    s = 0
-    while s < len(d_f_r):
-        if mushrooms[i] % d_f_r[s] != 0:
-            del d_f_r[s]
-        else:
-            s += 1
-print(max(d_f_r))
+d_f_r = [i for i in range(mm, 0, -1) if mm % i == 0]
+for i in d_f_r:
+    found = True
+    for j in mushrooms:
+        if j % i != 0:
+            found = False
+            break
+    if found:
+        break
+print(i)
