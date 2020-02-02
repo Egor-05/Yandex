@@ -1,6 +1,2 @@
-def average(values):
-    if len(values) != 0:
-        res = sum(values) / len(values)
-        return res
-    else:
-        return 0
+def take_large_banknotes(banknotes):
+    return [i for i in banknotes if i > 10]
