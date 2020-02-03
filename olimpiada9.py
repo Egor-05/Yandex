@@ -6,11 +6,14 @@ def isvowel(letter):
 
 
 def find_ritm(s):
+    a = [0]
     for j in range(2, len(s) // 2 + 1):
         res = [s[c:c + j] for c in range(0, len(s), j) if c + j <= len(s)]
         if len(set(res)) == 1 and len(res) > 1:
-            return res[0]
-    return '0'
+            a.append(res[0])
+    if len(a) > 1:
+        del a[0]
+    return a
 
 
 def check_poem(poem):
@@ -25,12 +28,13 @@ def check_poem(poem):
     if listv.count('1') == 0:
         return 'ошибка'
     ritm = find_ritm(listv)
-    if ritm in stiles:
-        return stiles[ritm]
-    elif '1' not in ritm:
-        return 'не стихи'
-    else:
-        return 'недостаточно информации'
+    print(ritm)
+    # if len(ritm) == 1 and ritm[0].count(1) == 1 and ritm[0] in stiles:
+    #     return stiles[ritm[0]]
+    # elif '1' not in ritm:
+    #     return 'не стихи'
+    # else:
+    #     return 'недостаточно информации'
 
 
 def tests():
@@ -51,12 +55,12 @@ def tests():
     print(check_poem('ХОдит и дЫшит, и блЕщет онО.') == 'дактиль')
     print(check_poem('А А А А А А А А А А А А') == 'недостаточно информации')
     print(check_poem('АААААААААААА') == 'ошибка')
-    print(check_poem('аааааааааааааа') == 'ошибка')
+    print(check_poem('ааааааааааааааА') == 'не стихи')
     print(check_poem('ааааА ааааА ааааА ааааА') == 'недостаточно информации')
     print(check_poem('ааарпугпацугапагшцуаауцУ рвшгуацргаА') == 'не стихи')
     print(check_poem('Аа А Аа А') == 'недостаточно информации')
     print(check_poem('Вот хОлм лесИстый, нАд котОрым чАсто') == 'ямб')
 
 
-# print(check_poem(input()))
-tests()
+print(check_poem(input()))
+#tests()
