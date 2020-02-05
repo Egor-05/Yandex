@@ -1,5 +1,18 @@
-print("1 бит - минимальная единица количества информации.")
-print("1 байт = 8 бит.")
-print("1 Килобит = 1024 бита.")
-print("1 Килобайт = 1024 байта.")
-print("1 Килобайт = " + str(1024 * 8) + " бит.")
+import datetime
+
+
+def f(n):
+    return f(n - 1) * n if n else 1
+
+
+znach = int(input())
+a = datetime.datetime.now()
+b = f(znach)
+print(b)
+print(datetime.datetime.now() - a)
+s = 1
+x = datetime.datetime.now()
+for i in range(1, znach + 1):
+    s *= i
+print(s)
+print(datetime.datetime.now() - x)
