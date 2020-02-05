@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-for i in range(1, 19, 2):
-        print(i)
-=======
 import math
 
 
@@ -25,4 +21,4 @@ def roots_of_quadratic_equation(a, b, c):
 
 
 print(roots_of_quadratic_equation(3, -25, 8))
->>>>>>> 11899a3a4ee2933fa1f2436947f6ff5a2580bce0
+

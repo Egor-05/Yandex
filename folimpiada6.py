@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-a = int(input())
-for i in range(a + 2):
-    a1 = input()
-if a == 4:
-    print(9)
-=======
 from math import sqrt
 
 
@@ -32,4 +25,4 @@ if len(res):
     print(' '.join(res))
 else:
     print('NO')
->>>>>>> 11899a3a4ee2933fa1f2436947f6ff5a2580bce0
+
