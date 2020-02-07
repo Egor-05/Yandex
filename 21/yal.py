@@ -5,16 +5,18 @@ def late(now, classes, bus):
     c = 0
     if max(bus) < 5 or t < 0:
         return 'Опоздание'
+    a = ''
     while c < len(bus):
         if bus[c] < 5:
             c += 1
             continue
-        if t + 5 - bus[c] < 0 and bus[c - 1] - 5 < 0:
+        if t + 5 - bus[c] < 0 and a == '':
             return 'Опоздание'
-        elif t + 5 - bus[c] < 0 and bus[c - 1] - 5 >= 0:
+        elif t + 5 - bus[c] < 0 and a != 0:
             break
+        a = bus[c] - 5
         c += 1
-    return f'Выйти через {bus[c - 1] - 5} минут'
+    return f'Выйти через {a} минут'
 
 
 print(late('12:59', '13:45', [3, 35, 46, 55]))
