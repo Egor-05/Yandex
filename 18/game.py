@@ -3,12 +3,18 @@ import random
 
 
 def prepare_and_start():
-    global player, exit, fires
+    global player, exit, fires, enemy
     canvas.delete("all")
+    enemy_pos = (random.randint(1, N_X - 1) * step,
+                 random.randint(1, N_Y - 1) * step)
     player_pos = (random.randint(1, N_X - 1) * step,
                   random.randint(1, N_Y - 1) * step)
     exit_pos = (random.randint(1, N_X - 1) * step,
                 random.randint(1, N_Y) * step)
+    enemy = canvas.create_oval(
+        (enemy_pos[0], enemy_pos[1]),
+        (enemy_pos[0] + step, enemy_pos[1] + step),
+        fill='black')
     player = canvas.create_oval(
         (player_pos[0], player_pos[1]),
         (player_pos[0] + step, player_pos[1] + step),
@@ -44,6 +50,9 @@ def prepare_and_start():
     master.bind("<KeyPress>", key_pressed)
 
 
+def move_enemy()
+
+
 def move_wrap(obj, move):
     canvas.move(obj, move[0], move[1])
     x = canvas.coords(obj)[0]
@@ -67,7 +76,7 @@ def check_move():
         label.config(text="Победа!")
         master.bind("<KeyPress>", do_nothing)
     for f in fires:
-        if canvas.coords(player) == canvas.coords(f):
+        if canvas.coords(player) == canvas.coords(f) or canvas.coords(player) == canvas.coords(enemy):
             label.config(text="Ты проиграл!")
             master.bind("<KeyPress>", do_nothing)
 
