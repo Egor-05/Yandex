@@ -2,6 +2,9 @@ import tkinter
 import random
 
 
+t = 0
+
+
 def prepare_and_start():
     global player, exit, fires, enemy
     canvas.delete("all")
@@ -50,7 +53,20 @@ def prepare_and_start():
     master.bind("<KeyPress>", key_pressed)
 
 
-def move_enemy()
+def move_enemy():
+    d_x = canvas.coords(player)[0] - canvas.coords(enemy)[0]
+    d_y = canvas.coords(player)[1] - canvas.coords(enemy)[1]
+    d_x = 1 if d_x == 0 else d_x
+    d_y = 1 if d_y == 0 else d_y
+    step_x = step * (d_x / abs(d_x))
+    step_y = step * (d_y / abs(d_y))
+    canvas.move(enemy, step_x, step_y)
+    x = canvas.coords(enemy)[0]
+    y = canvas.coords(enemy)[1]
+    if x < 0 or x > 600:
+        canvas.move(enemy, x / abs(x) * -600, 0)
+    if y < 0 or y > 600:
+        canvas.move(enemy, 0, y / abs(y) * -600)
 
 
 def move_wrap(obj, move):
@@ -82,6 +98,7 @@ def check_move():
 
 
 def key_pressed(event):
+    global t
     if event.keysym == 'Up':
         move_wrap(player, (0, -step))
     elif event.keysym == 'Down':
@@ -90,6 +107,12 @@ def key_pressed(event):
         move_wrap(player, (step, 0))
     elif event.keysym == 'Left':
         move_wrap(player, (-step, 0))
+    elif event.keysym == 'f':
+        t += 3
+    if t == 0:
+        move_enemy()
+    else:
+        t -= 1
     check_move()
 
 
