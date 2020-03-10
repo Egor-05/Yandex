@@ -1,2 +1,1 @@
-import math
-print(math.atan() * 180 / math.pi)
+print(3 // 2)

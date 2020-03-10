@@ -10,7 +10,7 @@ def inpt(*arr):
 
 def goriz(matrix):
     for i in range(len(matrix)):
-        matrix[i] = matrix[i][::-1]
+        matrix[i] = ''.join(list(reversed(matrix[i])))
     return matrix
 
 
@@ -28,7 +28,7 @@ def transp(mx):
 
 
 def vert(matrix):
-    matrix.reverse()
+    matrix = list(reversed(matrix))
     for i in range(len(matrix)):
-        matrix[i] = matrix[i][::-1]
+        matrix[i] = ''.join(list(reversed(matrix[i])))
     return matrix

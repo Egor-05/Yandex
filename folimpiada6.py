@@ -1,28 +1,36 @@
-from math import sqrt
+from random import sample
 
 
-def chk_div(n):
-    lst = set()
-    lst.add(n)
-    n1 = int(sqrt(n))
-    for i in range(2, n1 + 1):
-        if n % i == 0:
-            if i * i in lst or sqrt(i) in lst:
-                return False
-            lst.add(i)
-            n2 = n // i
-            if n2 * n2 in lst or sqrt(n2) in lst:
-                return False
-            lst.add(n2)
-    if len(lst) > 1:
-        return True
-    return False
+elems = ['2', '3', '4', '5', '6', '7', '8', '9', 'q', 'w', 'e', 'r',
+         't', 'y', 'u', 'i', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k',
+         'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Q', 'W', 'E', 'R', 'T', 'Y',
+         'U', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z',
+         'X', 'C', 'V', 'B', 'N', 'M']
 
 
-st, fn = [int(i) for i in input().split()]
-res = [str(i) for i in range(st, fn + 1) if chk_div(i)]
-if len(res):
-    print(' '.join(res))
-else:
-    print('NO')
+def generate_password(m):
+    while 1:
+        prov1 = False
+        prov2 = False
+        prov3 = False
+        a = ''.join(sample(elems, m))
+        for i in a:
+            if ord('A') <= ord(i) <= ord('Z'):
+                prov1 = True
+            if i.isdigit():
+                prov2 = True
+            if ord('a') <= ord(i) <= ord('z'):
+                prov3 = True
+        if prov1 and prov2 and prov3:
+            break
+    return a
 
+
+def main(n, m):
+    a = []
+    for i in range(n):
+        a1 = generate_password(m)
+        while a1 in a:
+            a1 = generate_password(m)
+        a.append(a1)
+    return a

@@ -1,10 +1,20 @@
 import math
 
 
-def urav(a1, c1, a2, c2):
-    b1 = b2 = 1
-    x = (c1 * b2 - c2 * b1) / (b1 * a2 - b2 * a1)
-    y = (c2 * a1 - c1 * a2) / (b1 * a2 - b2 * a1)
+def line_intersection(line1, line2):
+    xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
+    ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
+
+    def det(a, b):
+        return a[0] * b[1] - a[1] * b[0]
+
+    div = det(xdiff, ydiff)
+    if div == 0:
+        raise Exception('lines do not intersect')
+
+    d = (det(*line1), det(*line2))
+    x = det(d, xdiff) / div
+    y = det(d, ydiff) / div
     return x, y
 
 
@@ -15,9 +25,9 @@ def equation(first_point, second_point, kb):
     if first_pointx - second_pointx != 0:
         a = (first_pointy - second_pointy) / (first_pointx - second_pointx)
     c = first_pointy - a * first_pointx
-    if kb == 'a':
+    if kb == 'k':
         return a
-    elif kb == 'c':
+    elif kb == 'b':
         return c
     else:
         return [a, c]
@@ -25,7 +35,7 @@ def equation(first_point, second_point, kb):
 
 b_x, b_y, c_x, c_y, d_x, d_y = [int(i) for i in input().split()]
 u = 180 - (math.atan(equation('0;0', f'{b_x};{b_y}', 'k')) * 180 / math.pi
-           + math.atan(equation(f'{c_x};{c_y}', f'{d_x};{d_y}', 'k') * 180 / math.pi))
-k1, b1 = equation('0;0', f'{b_x};{b_y}', 'kb')
-k2, b2 = equation(f'{c_x};{c_y}', f'{d_x};{d_y}', 'kb')
-print(urav(k1, b1, k2, b2))
+           + math.atan(equation(f'{c_x};{c_y}', f'{d_x};{d_y}', 'k')) * 180 / math.pi)
+print(line_intersection(([0, 0], [b_x, b_y]), ([c_x, c_y], [d_x, d_y])), u)
+u1 = 180 - u - math.atan(equation(f'{c_x};{c_y}', f'{d_x};{d_y}', 'k')) * 180 / math.pi
+

@@ -1,16 +1,22 @@
-pros = {}
-a = int(input())
-a1 = input().split(' опубликовал пост, количество просмотров: ')
-a1[-1] = int(a1[-1])
-pros[a1[0]] = a1[-1]
-for i in range(a - 1):
-    a2 = input().split(' отрепостил пост у ')
-    a2[-1] = a2[-1].split(', количество просмотров: ')
-    a2 += a2[-1]
-    del a2[1]
-    pros[a2[0]] = int(a2[-1])
-    if a2[1] in pros and a2[1] != a1[0]:
-        pros[a2[1]] += int(a2[-1])
-    pros[a1[0]] += int(a2[-1])
-for i in pros:
-    print(pros[i])
+from PIL import Image, ImageDraw
+
+
+def board(num, size):
+    new_color = (255, 255, 255)
+    new_image = Image.new("RGB", (num * size, num * size), new_color)
+    x = size * num
+    y = x
+    draw = ImageDraw.Draw(new_image)
+    for i in range(0, x, size):
+        if i % (size * 2) == 0:
+            for j in range(0, y, size):
+                if j % (size * 2) == 0:
+                    draw.rectangle([i, j, i + size - 1, j + size - 1], fill='black')
+        else:
+            for j in range(size, y, size):
+                if j % (size * 2) != 0:
+                    draw.rectangle([i, j, i + size - 1, j + size - 1], fill='black')
+    new_image.save('res.png', "PNG")
+
+
+board(8, 50)
