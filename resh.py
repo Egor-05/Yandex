@@ -1,25 +1,48 @@
-from random import choice
+from copy import deepcopy
+from sys import stdin
 
 
-elems = ['2', '3', '4', '5', '6', '7', '8', '9', 'q', 'w', 'e', 'r',
-         't', 'y', 'u', 'i', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k',
-         'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Q', 'W', 'E', 'R', 'T', 'Y',
-         'U', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z',
-         'X', 'C', 'V', 'B', 'N', 'M']
+solve_sudoku
+def get_variants(sudoku):
+    variants = []
+    for i, row in enumerate(sudoku):
+        for j, value in enumerate(row):
+            if not value:
+                row_values = set(row)
+                column_values = set([sudoku[k][j] for k in range(4)])
+                sq_y = i // 2
+                sq_x = j // 2
+                square3x3_values = set([
+                    sudoku[m][n]
+                    for m in range(sq_y * 2, sq_y * 2 + 2)
+                    for n in range(sq_x * 2, sq_x * 2 + 2)
+                ])
+                exists = row_values | column_values | square3x3_values
+                values = set(range(1, 5)) - exists
+                variants.append((i, j, values))
+    return variants
 
 
-def generate_password(m):
-    return ''.join(list(choice(elems, k=m)))
+def solve(sudoku):
+    if all([k for row in sudoku for k in row]):
+        return sudoku
+    variants = get_variants(sudoku)
+    x, y, values = min(variants, key=lambda x: len(x[2]))
+    for v in values:
+        new_sudoku = deepcopy(sudoku)
+        new_sudoku[x][y] = v
+        s = solve(new_sudoku)
+        if s:
+            return s
 
 
-def main(n, m):
-    a = []
-    for i in range(n):
-        a1 = generate_password(m)
-        while a1 in a:
-            a1 = generate_password(m)
-        a.append(a1)
-    return a
+field = []
+for i in stdin:
+    ft = []
+    for j in i:
+        if j.isdigit():
+            ft.append(int(j))
+    field.append(ft)
+for i in solve(field):
+    print(''.join([str(j) for j in i]))
 
-
-print(main(3, 4))

@@ -1,4 +1,4 @@
-from swift import words
+﻿from swift import words
 from collections import defaultdict
 from random import choice
 

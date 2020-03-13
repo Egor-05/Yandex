@@ -1,55 +1,36 @@
-n1 = int(input())
-n = n1
-n1 -= 1
-summ = 0
-a4 = n // 60
-summ += a4 * 440
-n -= 60 * (n // 60)
-a3 = n // 20
-summ += a3 * 230
-n -= 20 * (n // 20)
-a2 = n // 10
-summ += 125 * a2
-n -= 10 * (n // 10)
-a1 = n // 5
-summ += 70 * a1
-n -= 5 * (n // 5)
-a0 = n // 1
-summ += a0 * 15
-n -= 1 * (n // 1)
-if (n1 // 60 + 1) * 440 < summ:
-    summ = (n1 // 60 + 1) * 440
-    a4 = n1 // 60 + 1
-    a3 = 0
-    a2 = 0
-    a1 = 0
-    a0 = 0
-if (n1 // 20 + 1) * 230 < summ:
-    summ = (n1 // 20 + 1) * 230
-    a4 = 0
-    a3 = n1 // 20 + 1
-    a2 = 0
-    a1 = 0
-    a0 = 0
-if (n1 // 10 + 1) * 125 < summ:
-    summ = (n1 // 10 + 1) * 125
-    a4 = 0
-    a3 = 0
-    a2 = n1 // 10 + 1
-    a1 = 0
-    a0 = 0
-if (n1 // 5 + 1) * 70 < summ:
-    summ = (n1 // 5 + 1) * 70
-    a4 = 0
-    a3 = 0
-    a2 = 0
-    a1 = n1 // 5 + 1
-    a0 = 0
-if (n1 + 1) * 15 < summ:
-    summ = (n1 + 1) * 15
-    a4 = 0
-    a3 = 0
-    a2 = 0
-    a1 = 0
-    a0 = n1 + 1
-print(a0, a1, a2, a3, a4, sep=' ')
+from random import sample
+
+
+elems = ['2', '3', '4', '5', '6', '7', '8', '9', 'q', 'w', 'e', 'r',
+         't', 'y', 'u', 'i', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k',
+         'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Q', 'W', 'E', 'R', 'T', 'Y',
+         'U', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z',
+         'X', 'C', 'V', 'B', 'N', 'M']
+
+
+def generate_password(m):
+    while 1:
+        prov1 = False
+        prov2 = False
+        prov3 = False
+        a = ''.join(sample(elems, m))
+        for i in a:
+            if ord('A') <= ord(i) <= ord('Z'):
+                prov1 = True
+            if i.isdigit():
+                prov2 = True
+            if ord('a') <= ord(i) <= ord('z'):
+                prov3 = True
+        if prov1 and prov2 and prov3:
+            break
+    return a
+
+
+def main(n, m):
+    a = []
+    for i in range(n):
+        a1 = generate_password(m)
+        while a1 in a:
+            a1 = generate_password(m)
+        a.append(a1)
+    return a
