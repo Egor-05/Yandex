@@ -45,3 +45,4 @@ for i in stdin:
     field.append(ft)
 for i in solve(field):
     print(''.join([str(j) for j in i]))
+
