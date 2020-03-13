@@ -1,10 +1,19 @@
+from decimal import Decimal, getcontext
 a = int(input())
-a = 1 / a
+getcontext().prec = 10000
+a = Decimal(1) / Decimal(a)
 a = str(a)
-a = a[2:]
-a = [int(j) for j in a]
+a = a[2:-1]
+ex = False
 for i in range(len(a)):
-    if a.count(a[i]) < 3:
-        del a[i]
-a1 = set(a)
-print(a1)
+    for j in range(1, len(a)):
+        res = [a[c:c + j] for c in range(i, len(a), j) if c + j <= len(a)]
+        if len(set(res)) == 1 and len(res) > 1:
+            print(res[0])
+            ex = True
+            break
+    if ex:
+        break
+if ex is False:
+    print(0)
+
