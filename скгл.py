@@ -1,32 +1,7 @@
-a = ['A.-',
-     'B-...',
-     'C-.-.',
-     'D-..',
-     'E.',
-     'F..-.',
-     'G--.',
-     'H....',
-     'I..',
-     'J.---',
-     'K-.-',
-     'L.-..',
-     'M--',
-     'N-.',
-     'O---',
-     'P.--.',
-     'Q--.-',
-     'R.-.',
-     'S...',
-     'T-',
-     'U..-',
-     'V...-',
-     'W--',
-     'X-..-',
-     'Y-.--',
-     'Z--..']
-for i in a:
-    c = i[1:]
-    i = ",'" + i[:1] + "': '"
-    i = "'" + c + i[::-1]
-    print(i)
+import math
+from functools import reduce
+from sys import stdin
 
+
+lst = list(map(int, [i for i in stdin]))
+print(reduce(math.gcd, lst))

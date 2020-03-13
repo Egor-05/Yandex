@@ -1,4 +1,4 @@
-﻿from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw
 
 
 def board(num, size):
