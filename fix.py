@@ -1,21 +1,11 @@
-import xlsxwriter
-import sys
-
-
-def export_check(text):
-    workbook = xlsxwriter.Workbook('res.xlsx')
-    worksheet = workbook.add_worksheet()
-    text = text.strip('\n').split('\n')
-    for i in range(len(text)):
-        worksheet.write(i, 0, (text[i].split('\t'))[0])
-        worksheet.write(i, 1, float((text[i].split('\t'))[1]))
-        worksheet.write(i, 2, int((text[i].split('\t'))[2]))
-        x = f'=B{i + 1}*C{i + 1}'
-        worksheet.write(i, 3, x)
-    x = '=SUM(' + 'D' + '1' + ':' + 'D' + str(len(text)) + ')'
-    worksheet.write(len(text), 0, 'Итого')
-    worksheet.write(len(text), 3, x)
-    workbook.close()
-
-
-export_check(sys.stdin.read())
+a = input()
+c = a[(len(a) - 1) // 2 + 1]
+pal = (a[:(len(a) - 1) // 2 + 1] + c + a[:(len(a) - 1) // 2 + 1][::-1] if len(a) % 2 == 1 else a[:2] + a[:2][::-1])
+print(pal)
+if int(pal) < int(a):
+    if len(pal) % 2 == 0:
+        a = pal[len(pal) // 2]
+        a1 = pal[len(pal) // 2 + 1]
+        pal = pal[:len(pal) // 2] + a + a1
+else:
+    print(pal)
