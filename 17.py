@@ -1,22 +1,21 @@
-from PIL import Image, ImageDraw
+from PIL import Image
 
 
-def board(num, size):
-    new_color = (255, 255, 255)
-    new_image = Image.new("RGB", (num * size, num * size), new_color)
-    x = size * num
-    y = x
-    draw = ImageDraw.Draw(new_image)
-    for i in range(0, x, size):
-        if i % (size * 2) == 0:
-            for j in range(0, y, size):
-                if j % (size * 2) == 0:
-                    draw.rectangle([i, j, i + size - 1, j + size - 1], fill='black')
-        else:
-            for j in range(size, y, size):
-                if j % (size * 2) != 0:
-                    draw.rectangle([i, j, i + size - 1, j + size - 1], fill='black')
-    new_image.save('res.png', "PNG")
+def makeanagliph(filename, delta):
+    im = Image.open(filename)
+    x, y = im.size
+    res = Image.new('RGB', (x, y), (0, 0, 0))
+    pixels2 = res.load()
+    pixels = im.load()
+    for i in range(x):
+        for j in range(y):
+            g, b = pixels[i, j][1:]
+            if i - delta >= 0:
+                r = pixels[i - delta, j][0]
+            else:
+                r = pixels[i, j][0]
+            pixels2[i, j] = r, g, b
+    res.save("res.jpg")
 
 
-board(8, 50)
+makeanagliph("image.jpg", 10)

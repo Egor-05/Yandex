@@ -1,11 +1,20 @@
-a = input()
-c = a[(len(a) - 1) // 2 + 1]
-pal = (a[:(len(a) - 1) // 2 + 1] + c + a[:(len(a) - 1) // 2 + 1][::-1] if len(a) % 2 == 1 else a[:2] + a[:2][::-1])
-print(pal)
-if int(pal) < int(a):
-    if len(pal) % 2 == 0:
-        a = pal[len(pal) // 2]
-        a1 = pal[len(pal) // 2 + 1]
-        pal = pal[:len(pal) // 2] + a + a1
-else:
-    print(pal)
+import xlsxwriter
+
+
+def export_check(text):
+    workbook = xlsxwriter.Workbook('res.xlsx')
+    worksheet = workbook.add_worksheet()
+    text = text.split('\n')
+    s = 0
+    for i in range(len(text)):
+        name = text[i].split('\t')[0]
+        price = text[i].split('\t')[1]
+        n = text[i].split('\t')[2]
+        worksheet.write(i, 0, name)
+        worksheet.write(i, 1, float(price))
+        worksheet.write(i, 2, int(n))
+        worksheet.write(i, 3, '=B' + str(i + 1) + '*C' + str(i + 1))
+        s += 1
+    worksheet.write(s, 0, 'Итого')
+    worksheet.write(s, 3, '=SUM(D1:D' + str(s) + ')')
+    workbook.close()
