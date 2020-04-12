@@ -1,24 +1,26 @@
-last = 0
-f = 0
-s = 0
-maxx = 1
-while 1:
-    x = int(input())
-    if x == 0:
-        break
-    else:
-        if maxx == 1:
-            if x * last % 7 == 0 and x * last % 49 != 0 and x * last > maxx:
-                maxx = x * last
-                f = x
-                s = last
-        else:
-            if x * f % 7 == 0 and x * f % 49 != 0 and x * f > maxx:
-                maxx = x * f
-                s = x
-            if x * s % 7 == 0 and x * s % 49 != 0 and x * s > maxx:
-                maxx = x * s
-                f = x
-    last = x
-print(maxx)
+from math import sin, cos, pi
+from PIL import ImageDraw
+from PIL import Image
 
+
+class MyImageDraw(ImageDraw.ImageDraw):
+
+    def regular_polygon(self, center, sides, radius, rotation=0.0, fill=None, outline=None):
+        ink, fill = self._getink(outline, fill)
+        u = []
+        ug = 2 * pi / sides
+        a = rotation
+        for i in range(sides):
+            u.append(a)
+            a += ug
+        points = [(radius * sin(i) + center[0], radius * cos(i) + center[1]) for i in u]
+        if fill is not None:
+            self.draw.draw_polygon(points, fill, 1)
+        if ink is not None and ink != fill:
+            self.draw.draw_polygon(points, ink, 0)
+
+
+im = Image.new('RGB', (400, 400))
+dr = MyImageDraw(im)
+dr.regular_polygon((200, 200), 5, 100, fill='blue', outline='white')
+im.save('res.jpg')
