@@ -1,70 +1,50 @@
-from collections import defaultdict
+from docx import Document
 
 
-def return_user_mail(user):
-    if user in users_emails:
-        return users_emails[user]
-    return []
-
-
-def append_to_dict1(user, user1, message):
-    users_emails[user].append({user1: message})
-
-
-def append_to_dict2(user, user1, message):
-    users_sent[user1].append({user: message})
-
-
-def cleaner(user):
-    users_emails[user] = []
-
-
-users_emails = defaultdict(list)
-users_sent = defaultdict(list)
-SERVERS = ['server1', 'server2', 'server3', 'server4']
-
-
-class MailClient:
-
-    def __init__(self, server, user):
-        if server not in SERVERS:
-            print('Такого сервера не существует')
-        self.user = user
-        self.server = server
-        self.user_emails = return_user_mail(user)
-        if len(self.user_emails) > 0:
-            print(f'Здравствуйте {user}, у вас есть непрочитанные письма')
-        else:
-            print(f'Здравствуйте {user}')
-
-    def receive_mail(self):
-        print('Список пользователей, написавших вам:')
-        for i in self.user_emails:
-            print(f'{i} написал вам:')
-            for j in self.user_emails[i]:
-                print(j)
-        print('Хотите ли кому-то из них ответить?')
-        a = input()
-        while 1:
-            if a == 'Да':
-                while 1:
-                    a = input('Введите имя написавшего вам пользователя')
-                    while a not in self.user_emails:
-                        a = input('Введите имя написавшего вам пользователя')
-                    b = input('Введите сервер')
-                    while b not in SERVERS:
-                        b = input('Введите сервер ещё раз')
-                    self.send_mail(b, a, input('Введите сообщение'))
-                    a = input('Вы хотите закончить?')
-                    if a == 'Да':
-                        break
-            elif a == 'Нет':
-                break
+def markdown_to_docx(text):
+    doc = Document()
+    lns = text.split('\n')
+    for line in lns:
+        if line:
+            # заголовки
+            if line[:7].count('#') == 1:
+                a = line.replace('#', '')
+                doc.add_heading(a, level=1)
+            elif line[:7].count('#') == 2:
+                doc.add_heading(line.replace('#', ''), level=2)
+            elif line[:7].count('#') == 3:
+                doc.add_heading(line.replace('#', ''), level=3)
+            elif line[:7].count('#') == 4:
+                doc.add_heading(line.replace('#', ''), level=4)
+            elif line[:7].count('#') == 5:
+                doc.add_heading(line.replace('#', ''), level=5)
+            elif line[:7].count('#') == 6:
+                doc.add_heading(line.replace('#', ''), level=6)
+            # списки
+            elif str(line[:2]) == '- ':
+                doc.add_paragraph(line[2:], style='List Bullet')
+            elif str(line[:2]) == '* ':
+                doc.add_paragraph(line[2:], style='List Bullet')
+            elif str(line[:2]) == '+ ':
+                doc.add_paragraph(line[2:], style='List Bullet')
+            elif line[0].isdigit() and line[1] == '.':
+                doc.add_paragraph(line[2:], style='List Number')
+            # различные выделения букв
+            elif line[:3].count('*') == 1:
+                doc.add_paragraph().add_run(line[1:-1]).italic = True
+            elif line[:3].count('*') == 2:
+                doc.add_paragraph().add_run(line[2:-2]).bold = True
+            elif line[:3].count('*') == 3:
+                doc.add_paragraph().add_run(line[3:-3]).italic = True
+                doc.add_paragraph().add_run(line[3:-3]).bold = True
+            # строки не содержащие ничеко из выше перечисленного
             else:
-                a = input('Вводите только Да или Нет')
-            cleaner(self.user)
+                doc.add_paragraph(line)
+        else:
+            doc.add_paragraph()
+    doc.save('res.docx')
 
-    def send_mail(self, server1, user1, message):
-        if server1 in SERVERS:
-            append_to_dict1(user1, self.user, message)
-            append_to_dict2(user1, self.user, message)
+
+markdown_to_docx('test01\nАбзацы создаются при помощи пустой строки. Если вокруг текста сверху и снизу есть пустые строки, то текст превращается в абзац.')
+            #'\n\nЧтобы сделать перенос строки вместо абзаца,\nнужно поставить два пробела в конце предыдущей строки.\n\nЗаголовки отмечаются диезом `#` в начале строки, от одного до шести. Например:\n\n# Заголовок первого уровня\n## Заголовок h2\n### Заголовок h3\n#### Заголовок h4\n##### Заголовок h5\n###### Заголовок h6\n\nВ декоративных целях заголовки можно «закрывать» с обратной стороны.\n\n### Списки\n\nДля разметки неупорядоченных списков можно использовать или `*`, или `-')
+
