@@ -1,26 +1,15 @@
-from math import sin, cos, pi
-from PIL import ImageDraw
-from PIL import Image
+import numpy as np
 
 
-class MyImageDraw(ImageDraw.ImageDraw):
-
-    def regular_polygon(self, center, sides, radius, rotation=0.0, fill=None, outline=None):
-        ink, fill = self._getink(outline, fill)
-        u = []
-        ug = 2 * pi / sides
-        a = rotation
-        for i in range(sides):
-            u.append(a)
-            a += ug
-        points = [(radius * sin(i) + center[0], radius * cos(i) + center[1]) for i in u]
-        if fill is not None:
-            self.draw.draw_polygon(points, fill, 1)
-        if ink is not None and ink != fill:
-            self.draw.draw_polygon(points, ink, 0)
-
-
-im = Image.new('RGB', (400, 400))
-dr = MyImageDraw(im)
-dr.regular_polygon((200, 200), 5, 100, fill='blue', outline='white')
-im.save('res.jpg')
+table = np.genfromtxt('ABBREV.csv', delimiter=';', dtype=None, names=True, encoding="utf8")
+table.sort(order=['Energ_Kcal', 'Shrt_Desc'])
+print(table[-1][1])
+table.sort(order='Sugar_Tot_g')
+a = [i[9] for i in table]
+print(table[a.index(table[-1][9])][1])
+table.sort(order='Protein_g')
+a = [i[5] for i in table]
+print(table[a.index(table[-1][5])][1])
+table.sort(order='Vit_C_mg')
+a = [i[20] for i in table]
+print(table[-1][1])
