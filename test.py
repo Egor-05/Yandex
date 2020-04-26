@@ -1,24 +1,21 @@
-from datetime import datetime as dt
+cache = []
 
 
-def dec(func):
-    def x(*args):
-        a = dt.now()
-        b = func(*args)
-        print(dt.now() - a)
-        return b
-    return x
+def cached(func):
+    def wrap(*args):
+        global cache
+        cache.append(func(*args))
+        return func(*args)
+    return wrap
 
 
-@dec
-def func(string):
-    return string * 2
+@cached
+def fib(n):
+    if n == 1 or n == 2:
+        return 1
+    else:
+        return fib(n - 1) + fib(n - 2)
 
 
-@dec
-def func1(t1, t2):
-    return t1 + t2
-
-
-print(func(1))
-print(func1(1, 1))
+print(fib(10))
+print(cache)

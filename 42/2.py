@@ -1,9 +1,14 @@
 def check_password(test):
     def wrap(*args):
-        n = input('Введите пароль')
-        if n != '123':
-            return 'В доступе отказано'
         return test(*args)
+
+    def none(*args):
+        return None
+
+    n = input('Введите пароль: ')
+    if n != '123':
+        print('В доступе отказано')
+        return none
     return wrap
 
 
