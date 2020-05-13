@@ -1,32 +1,21 @@
 import numpy as np
-from itertools import combinations
-
-
-def is_not_under_attack(y1, x1, arr):
-    for y2, x2 in arr:
-        if abs(x1 - x2) == abs(y1 - y2) or x1 == x2 or y1 == y2:
-            return False
-    return True
 
 
 def queens(size):
-    b = [i for i in range(size)]
-    c = b.copy()
-    for i in range(size - 1):
-        b += c
-    lst = set()
-    for i in combinations(b, size):
-        if len(i) == len(set(i)):
-            points = [(j, int(i[j])) for j in range(len(i))]
-            n = True
-            for j in points:
-                if not is_not_under_attack(j[0], j[1], [e for e in points if e != j]):
-                    n = False
-                    break
-            if n:
-                lst.add(''.join([str(int(j) + 1) for j in i]))
-    for i in sorted(list(lst)):
-        print(i)
+    lst = np.array([[]])
+    for row in range(size):
+        lst = add_queen(row, size, lst)
+    for i in lst:
+        print(''.join(str(j + 1).replace('.', '').replace('0', '') for j in i))
 
 
-queens(6)
+def add_queen(row, cols, lst):
+    return [np.append(i, [j]) for i in lst for j in range(cols) if not_is_under_attack(row, j, i)]
+
+
+def not_is_under_attack(row, col, lst):
+    a = [lst[i] != col and lst[i] + i != col + row and lst[i] - i != col - row for i in range(row)]
+    return all(a)
+
+
+queens(4)
